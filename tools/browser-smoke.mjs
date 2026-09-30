@@ -8,6 +8,10 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const port = 9300 + Math.floor(Math.random() * 600);
+const gameUrl = new URL(process.env.GAME_URL || 'http://127.0.0.1:4173/');
+gameUrl.searchParams.set('autostart', '1');
+gameUrl.searchParams.set('debug', '1');
+gameUrl.searchParams.set('seed', '42');
 const profile = await fs.mkdtemp(path.join(os.tmpdir(), 'neon-strike-smoke-'));
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -38,7 +42,7 @@ const child = spawn(browser, [
   '--mute-audio',
   `--remote-debugging-port=${port}`,
   `--user-data-dir=${profile}`,
-  'http://127.0.0.1:4173/?autostart=1&debug=1&seed=42'
+  gameUrl.toString()
 ], { stdio: ['ignore', 'ignore', 'pipe'] });
 
 let stderr = '';
@@ -50,7 +54,7 @@ async function getPageTarget() {
     try {
       const response = await fetch(`http://127.0.0.1:${port}/json/list`);
       const targets = await response.json();
-      const page = targets.find((target) => target.type === 'page' && target.url.includes('127.0.0.1:4173'));
+      const page = targets.find((target) => target.type === 'page' && target.url.includes(gameUrl.host));
       if (page) return page;
     } catch {
       // Browser is still starting.
