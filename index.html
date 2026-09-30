@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#060714" />
+    <meta name="description" content="Neon Strike: an original zero-dependency HTML5 run-and-gun platformer." />
+    <title>Neon Strike: Skyline Breach</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>NEON STRIKE</span>
+        </div>
+        <div class="actions">
+          <button id="pause-button" type="button">Pause</button>
+          <button id="restart-button" type="button">Restart</button>
+          <button id="mute-button" type="button">Sound: On</button>
+        </div>
+      </header>
+
+      <div class="screen-wrap">
+        <canvas id="game" width="1280" height="720" tabindex="0" aria-label="Neon Strike game canvas">
+          Your browser needs Canvas support to play Neon Strike.
+        </canvas>
+        <div class="scanlines" aria-hidden="true"></div>
+      </div>
+
+      <section class="mobile-controls" aria-label="Touch controls">
+        <div class="dpad">
+          <button type="button" data-action="left" aria-label="Move left">◀</button>
+          <button type="button" data-action="right" aria-label="Move right">▶</button>
+        </div>
+        <div class="combat-controls">
+          <button type="button" data-action="grenade" aria-label="Throw grenade">G</button>
+          <button type="button" data-action="jump" aria-label="Jump">JUMP</button>
+          <button type="button" data-action="shoot" aria-label="Fire">FIRE</button>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>Original browser game, zero external assets.</span>
+        <span>Keyboard: A/D · Space · Mouse/J · K · P · R</span>
+      </footer>
+    </main>
+    <script type="module" src="./src/game.js"></script>
+  </body>
+</html>
